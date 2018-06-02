@@ -1,5 +1,6 @@
 package ${basePackage}.${servicePackage};
 
+import ${basePackage}.${dtoPackage}.${doNameUpperCamel}DTO;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

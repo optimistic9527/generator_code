@@ -1,5 +1,9 @@
 package ${basePackage}.${controllerPackage}Impl;
 
+import ${basePackage}.${controllerPackage}.${doNameUpperCamel}Controller;
+import ${basePackage}.${dtoPackage}.${doNameUpperCamel}DTO;
+import ${basePackage}.${servicePackage}.${doNameUpperCamel}Service;
+import ${basePackage}.core.ApiResponse;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -7,6 +11,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 /**
 * ${tableComment}Controller
 * @author ${author}
@@ -14,13 +20,14 @@ import org.springframework.web.bind.annotation.*;
 */
 @RestController
 @Api(tags = "${tableComment}")
-@RequestMapping("${baseRequestMapping}")
+@RequestMapping("${tableName}")
 public class ${doNameUpperCamel}ControllerImpl implements ${doNameUpperCamel}Controller{
     @Resource
     private ${doNameUpperCamel}Service ${doNameUpperCamel ? uncap_first}Service;
 
     @PostMapping("/add")
     @ApiOperation(value = "添加${tableComment}", notes = "添加${tableComment}")
+    @Override
     public String add(@RequestBody ${doNameUpperCamel}DTO ${doNameUpperCamel ? uncap_first}DTO) {
         ${doNameUpperCamel ? uncap_first}Service.insert(${doNameUpperCamel ? uncap_first}DTO);
         return ApiResponse.success();
@@ -31,6 +38,7 @@ public class ${doNameUpperCamel}ControllerImpl implements ${doNameUpperCamel}Con
 	@ApiImplicitParams({
 		@ApiImplicitParam(required = true, name = "id", value = "主键ID", paramType = "path", dataType = "String")
 	})
+    @Override
     public String delete(@PathVariable("id") String id) {
         ${doNameUpperCamel ? uncap_first}Service.delete(id);
         return ApiResponse.success();
@@ -38,6 +46,7 @@ public class ${doNameUpperCamel}ControllerImpl implements ${doNameUpperCamel}Con
 
     @PutMapping("/update")
     @ApiOperation(value = "修改${tableComment}", notes = "修改${tableComment}")
+    @Override
     public String update(@RequestBody ${doNameUpperCamel}DTO ${doNameUpperCamel ? uncap_first}DTO) {
         ${doNameUpperCamel ? uncap_first}Service.update(${doNameUpperCamel ? uncap_first}DTO);
         return ApiResponse.success();
@@ -48,6 +57,7 @@ public class ${doNameUpperCamel}ControllerImpl implements ${doNameUpperCamel}Con
 	@ApiImplicitParams({
 		@ApiImplicitParam(required = true, name = "id", value = "主键ID", paramType = "path", dataType = "String")
 	})
+    @Override
     public String detail(@PathVariable("id") String id) {
         ${doNameUpperCamel}DTO ${doNameUpperCamel ? uncap_first}DTO = ${doNameUpperCamel ? uncap_first}Service.getById(id);
         return ApiResponse.success(${doNameUpperCamel ? uncap_first}DTO);
@@ -59,6 +69,7 @@ public class ${doNameUpperCamel}ControllerImpl implements ${doNameUpperCamel}Con
 		@ApiImplicitParam(required = true, name = "pageSize", value = "每页显示数量", paramType = "query", dataType = "int"),
 		@ApiImplicitParam(required = true, name = "pageNum", value = "第几页", paramType = "query", dataType = "int")
 	})
+    @Override
     public String listPage(@RequestParam("pageSize") int pageSize,@RequestParam("pageNum") int pageNum) {
         PageInfo<${doNameUpperCamel}DTO> p = ${doNameUpperCamel ? uncap_first}Service.findPage(pageSize,pageNum);
         return ApiResponse.success(p);

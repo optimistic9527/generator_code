@@ -1,6 +1,6 @@
 package ${basePackage}.${controllerPackage};
 
-
+import ${basePackage}.${dtoPackage}.${doNameUpperCamel}DTO;
 /**
 * ${tableComment}Controller
 * @author ${author}

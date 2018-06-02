@@ -84,7 +84,6 @@ public class CodeGenerateUtils {
 		final String templateName = "controllerImpl.ftl";
 		File mapperFile = new File(path);
 		JSONObject data = (JSONObject) JSONObject.toJSON(gp);
-		data.put("baseRequestMapping", "/" + gp.getTableName().replaceAll("_", "/"));
 		generateFileByTemplate(templateName, mapperFile, data);
 	}
 

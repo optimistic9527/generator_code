@@ -1,6 +1,6 @@
 package ${basePackage}.${daoPackage};
 
-
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 /**
 * ${tableComment}DAO
@@ -18,7 +18,7 @@ public interface ${doNameUpperCamel}Dao<${doNameUpperCamel}>{
     * @param id 主键
     * @return ${doNameUpperCamel} 记录
     */
-    ${doNameUpperCamel} getById(String id);
+    ${doNameUpperCamel} getById(@Param("id")String id);
     /**
     * 获取单挑记录
     * @param ${doNameUpperCamel ? uncap_first} 过滤信息
@@ -46,7 +46,7 @@ public interface ${doNameUpperCamel}Dao<${doNameUpperCamel}>{
     * 删除记录
     * @param id 主键ID
     */
-    void delete(String id);
+    void delete(@Param("id") String id);
     /**
     * 分页查询
     * @return List<${doNameUpperCamel}> 记录集

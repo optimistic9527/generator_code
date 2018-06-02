@@ -41,7 +41,7 @@ public class ${doNameUpperCamel}DTO {
 
         </#if>
         <#if model.columnType = 'tinyint'>
-        private Byte ${model.doField?uncap_first};
+        private Boolean ${model.doField?uncap_first};
 
         </#if>
         <#if model.columnType = 'decimal' || model.columnType = 'numeric'>
@@ -98,11 +98,11 @@ public class ${doNameUpperCamel}DTO {
 
         </#if>
         <#if model.columnType = 'tinyint'>
-        public Byte get${model.doField}() {
+        public Boolean get${model.doField}() {
         return this.${model.doField?uncap_first};
         }
 
-        public void set${model.doField}(Byte ${model.doField?uncap_first}) {
+        public void set${model.doField}(Boolean ${model.doField?uncap_first}) {
         this.${model.doField?uncap_first} = ${model.doField?uncap_first};
         }
 
@@ -115,7 +115,6 @@ public class ${doNameUpperCamel}DTO {
         public void set${model.doField}(BigDecimal ${model.doField?uncap_first}) {
         this.${model.doField?uncap_first} = ${model.doField?uncap_first};
         }
-
         </#if>
     </#list>
 </#if>

@@ -12,7 +12,7 @@
 
     </sql>
 
-    <select id="getById" resultType="${basePackage}.${doPackage}.${doNameUpperCamel}">
+    <select id="getById" resultType="${doNameUpperCamel}">
         SELECT
         <include refid="${doNameUpperCamel ? uncap_first}Columns"/>
         FROM ${tableName} a
@@ -20,7 +20,7 @@
         WHERE a.id = ${"#"}{id}
     </select>
 
-    <select id="get" resultType="${basePackage}.${doPackage}.${doNameUpperCamel}" parameterType="${doNameUpperCamel}">
+    <select id="get" resultType="${doNameUpperCamel}" parameterType="${doNameUpperCamel}">
         SELECT
         <include refid="${doNameUpperCamel ? uncap_first}Columns"/>
         FROM ${tableName} a
@@ -30,7 +30,7 @@
         </where>
     </select>
 
-    <select id="findPage" resultType="${basePackage}.${doPackage}.${doNameUpperCamel}">
+    <select id="findPage" resultType="${doNameUpperCamel}">
         SELECT
         <include refid="${doNameUpperCamel ? uncap_first}Columns"/>
         FROM ${tableName} a
