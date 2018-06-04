@@ -1,5 +1,8 @@
 package com.company.project.core;
 
+import com.company.project.util.LoggerUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
@@ -20,6 +23,7 @@ import java.util.HashMap;
  **/
 @RestControllerAdvice
 public class ExceptionHandle {
+	private final static Logger LOGGER = LoggerFactory.getLogger(ExceptionHandle.class);
 	private static HashMap<Class, ResultCode> exceptionMap = new HashMap<>();
 	//后期有什么新的异常记得添加进去
 	static {
@@ -35,10 +39,13 @@ public class ExceptionHandle {
 	@ExceptionHandler({Exception.class})
 	public String handleException(Exception e) {
 		if (e instanceof ResponseException){
+			//对于我们知道的异常打出trace用于后期查看
+			LOGGER.trace(LoggerUtil.convertException2String(e));
 			return ApiResponse.failure(e.getMessage());
 		}
 		ResultCode resultCode = exceptionMap.get(e.getClass());
 		if(resultCode==null){
+			LOGGER.error(LoggerUtil.convertException2String(e));
 			resultCode=ResultCode.SYSTEM_UNKNOWN_ERROR;
 		}
 		return ApiResponse.failure(resultCode);

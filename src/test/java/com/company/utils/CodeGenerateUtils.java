@@ -28,15 +28,7 @@ public class CodeGenerateUtils {
 		data.put("hasDate", false);
 		data.put("hasBigDecimal", false);
 		System.out.println(columns.toString());
-		for (Column c : columns) {
-			c.setDoField(CodeGenerateUtils.toHump(c.getColumnName().toLowerCase()));
-			if (c.getColumnType().equals("date") || c.getColumnType().equals("datetime") || c.getColumnType().equals("timestamp")) {
-				data.put("hasDate", true);
-			}
-			if (c.getColumnType().equals("decimal") || c.getColumnType().equals("numeric")) {
-				data.put("hasBigDecimal", true);
-			}
-		}
+		check(columns,data);
 		data.put("columns", columns);
 		generateFileByTemplate(templateName, mapperFile, data);
 	}
@@ -50,15 +42,7 @@ public class CodeGenerateUtils {
 		JSONObject data = (JSONObject) JSONObject.toJSON(gp);
 		data.put("hasDate", false);
 		data.put("hasBigDecimal", false);
-		for (Column c : columns) {
-			c.setDoField(CodeGenerateUtils.toHump(c.getColumnName().toLowerCase()));
-			if (c.getColumnType().equals("date") || c.getColumnType().equals("datetime") || c.getColumnType().equals("timestamp")) {
-				data.put("hasDate", true);
-			}
-			if (c.getColumnType().equals("decimal") || c.getColumnType().equals("numeric")) {
-				data.put("hasBigDecimal", true);
-			}
-		}
+		check(columns,data);
 		data.put("columns", columns);
 		generateFileByTemplate(templateName, mapperFile, data);
 	}
@@ -149,7 +133,7 @@ public class CodeGenerateUtils {
 		template.process(data, out);
 	}
 
-	public static String toHump(String str) {
+	private static String toHump(String str) {
 		StringBuffer sb = new StringBuffer();
 		String[] arr = str.split("_");
 		for (int i = 0; i < arr.length; i++) {
@@ -170,5 +154,18 @@ public class CodeGenerateUtils {
 		cfg.setDefaultEncoding("UTF-8");
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
 		return cfg.getTemplate(templateName);
+	}
+
+
+	private void check(List<Column> columns,JSONObject data){
+		columns.forEach(c -> {
+			c.setDoField(CodeGenerateUtils.toHump(c.getColumnName().toLowerCase()));
+			if (c.getColumnType().equals("date") || c.getColumnType().equals("datetime") || c.getColumnType().equals("timestamp")) {
+				data.put("hasDate", true);
+			}
+			if (c.getColumnType().equals("decimal") || c.getColumnType().equals("numeric")) {
+				data.put("hasBigDecimal", true);
+			}
+		});
 	}
 }

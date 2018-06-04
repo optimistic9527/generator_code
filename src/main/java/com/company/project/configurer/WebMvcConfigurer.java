@@ -57,7 +57,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-//                .apis(RequestHandlerSelectors.basePackage("com"))//扫描的是自己写Controller的包名。
+//              .apis(RequestHandlerSelectors.basePackage("com"))//扫描的是自己写Controller的包名。
                 .paths(PathSelectors.any())
                 .build();
     }
